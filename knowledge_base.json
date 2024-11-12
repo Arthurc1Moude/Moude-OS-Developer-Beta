@@ -1,0 +1,206 @@
+{
+    "code_optimization": {
+        "javascript": {
+            "variable_declaration": {
+                "description": "Use 'let' or 'const' instead of 'var'.",
+                "example": "let x = 5; const y = 10; instead of var z = 15;"
+            },
+            "function_definition": {
+                "description": "Prefer arrow functions, e.g., const add = (a, b) => a + b;",
+                "example": "const add = (a, b) => a + b;"
+            },
+            "loop_optimization": {
+                "description": "Minimize nested loops; consider array methods like map, filter, reduce for better performance.",
+                "example": "Use array.map() instead of a for loop when possible."
+            },
+            "memory_management": {
+                "description": "Avoid creating unnecessary closures as they can hold references and consume memory. Also, use local variables inside functions instead of relying on global scope.",
+                "example": "Don't create closures like (function() { var x = 5; return function() { return x; }; })(); if not needed."
+            }
+        },
+        "java": {
+            "variable_declaration": {
+                "description": "Declare with data type, like int num = 5;",
+                "example": "int num = 5; String name = \"John\";"
+            },
+            "method_definition": {
+                "description": "Methods have return type, name, params. E.g., public int add(int a, int b) { return a + b; }",
+                "example": "public int add(int a, int b) { return a + b; }",
+                "exception_handling": {
+                    "description": "Handle exceptions properly in methods. Don't swallow exceptions without logging or handling them gracefully.",
+                    "example": "try { // code that might throw an exception } catch (Exception e) { log.error(e); }"
+                }
+            },
+            "loop_optimization": {
+                "description": "For large collections, consider using parallel streams in Java 8+ for better performance in some cases.",
+                "example": "list.parallelStream().forEach( // operation );"
+            }
+        },
+        "html": {
+            "tag_optimization": {
+                "description": "Reduce inline styles, use external CSS.",
+                "example": "Use external CSS for <div> style instead of inline."
+            },
+            "script_loading": {
+                "description": "Load scripts at the end of body for better performance.",
+                "example": "Put <script> before </body>."
+            },
+            "image_optimization": {
+                "description": "Compress images before using them in HTML. Use appropriate image formats like WebP if supported by browsers.",
+                "example": "Convert images to WebP format for better performance."
+            }
+        },
+        "yml": {
+            "indentation": {
+                "description": "Indent each level by 2 spaces in YML.",
+                "example": "Correct: key1:\n  key2:\n    value. Incorrect: key1:\nkey2:\n  value"
+            },
+            "data_types": {
+                "description": "Know YML data types like strings in quotes, numbers not in quotes, booleans as true/false.",
+                "example": "String: 'text', number: 5, boolean: true"
+            },
+            "repeating_elements": {
+                "description": "When using lists or arrays in YML, ensure the syntax is correct. For maps, maintain the key - value pairs properly.",
+                "example": "For a list: - item1 - item2. For a map: key1: value1 key2: value2"
+            }
+        }
+    },
+    "code_style_check": {
+        "javascript": {
+            "semicolon_usage": {
+                "description": "Use semicolons consistently in JavaScript.",
+                "example": "let x = 5; not let x = 5"
+            },
+            "brace_style": {
+                "description": "Choose a brace style and be consistent.",
+                "example": "Function braces can be on new lines or same line as last statement."
+            },
+            "spacing_and_formatting": {
+                "description": "Use consistent spacing around operators and after commas. Keep the code formatting clean.",
+                "example": "let sum = a + b; not let sum=a+b;"
+            }
+        },
+        "java": {
+            "indentation_style": {
+                "description": "Use 4 - space indentation in Java.",
+                "example": "Proper indentation in Java class and methods."
+            },
+            "naming_conventions": {
+                "description": "Follow Java naming rules. Class names start with capital, variable and method names start with lowercase, all in CamelCase.",
+                "example": "Class: MyClass, variable: myVariable, method: myMethod"
+            },
+            "code_length": {
+                "description": "Try to keep methods and classes within a reasonable length for readability. Split large methods if possible.",
+                "example": "A method with 100 lines of code should be refactored."
+            }
+        },
+        "html": {
+            "tag_naming": {
+                "description": "Use correct HTML tag names.",
+                "example": "Use <p> for paragraphs, <h1> - <h6> for headings."
+            },
+            "attribute_naming": {
+                "description": "Use correct attribute names in HTML, usually lowercase.",
+                "example": "src for images, href for links."
+            },
+            "tag_nesting": {
+                "description": "Properly nest HTML tags. For example, <li> should be inside <ul> or <ol> tags.",
+                "example": "<ul><li>Item 1</li></ul>"
+            }
+        },
+        "yml": {
+            "comment_format": {
+                "description": "YML comments start with #.",
+                "example": "# This is a YML comment."
+            },
+            "case_sensitivity": {
+                "description": "YML is case - sensitive.",
+                "example": "key1 and Key1 are different."
+            },
+            "line_length": {
+                "description": "Try to keep lines in YML within a reasonable length for better readability.",
+                "example": "Don't make YML lines too long."
+            }
+        }
+    },
+    "security_check": {
+        "javascript": {
+            "xss_prevention": {
+                "description": "Sanitize user input in JavaScript to prevent XSS, e.g., with DOMPurify.",
+                "example": "Sanitize input before using in DOM."
+            },
+            "csrf_prevention": {
+                "description": "Use CSRF tokens in JavaScript AJAX requests.",
+                "example": "Include token in request headers."
+            },
+            "secure_cookie_usage": {
+                "description": "Set the 'secure' and 'httpOnly' flags on cookies to enhance security.",
+                "example": "document.cookie = 'name=value; secure; httpOnly';"
+            }
+        },
+        "java": {
+            "sql_injection_prevention": {
+                "description": "Use PreparedStatement in Java for database access to prevent SQL injection.",
+                "example": "PreparedStatement instead of Statement for queries."
+            },
+            "password_security": {
+                "description": "Hash passwords in Java with BCrypt.",
+                "example": "Hash password with BCrypt before storing."
+            },
+            "input_validation": {
+                "description": "Validate all user inputs in Java to prevent malicious data from being processed.",
+                "example": "Check if input values are within expected ranges."
+            }
+        },
+        "html": {
+            "clickjacking_prevention": {
+                "description": "Prevent clickjacking in HTML with X - Frame - Options header or meta tags.",
+                "example": "Use <meta name='X - Frame - Options' content='DENY'>."
+            },
+            "csrf_prevention": {
+                "description": "Use CSRF tokens in HTML forms, include in hidden fields.",
+                "example": "Include token in form's hidden field."
+            },
+            "content_security_policy": {
+                "description": "Implement a Content Security Policy (CSP) in HTML to restrict the sources of content that can be loaded.",
+                "example": "Add a CSP meta tag like <meta http - equiv='Content - Security - Policy' content='default - src'self'>."
+            }
+        },
+        "yml": {
+            "access_control": {
+                "description": "For sensitive YML, use encryption or access control, e.g., Vault for encryption.",
+                "example": "Encrypt sensitive keys and values in YML."
+            },
+            "network_access": {
+                "description": "If YML is used for network - related configurations, ensure proper access controls and security measures are in place.",
+                "example": "Limit access to network - related YML settings."
+            }
+        }
+    },
+    "project_build": {
+        "javascript": {
+            "build_tools": {
+                "description": "Use Webpack or Rollup for JavaScript builds. Webpack bundles files and dependencies.",
+                "example": "Use Webpack with entry and output configuration."
+            },
+            "minification": {
+                "description": "Minify JavaScript with tools like UglifyJS during build for smaller size.",
+                "example": "Use UglifyJS plugin in Webpack config."
+            },
+            "source_maps": {
+                "description": "Generate source maps during the build process to help with debugging in production environments.",
+                "example": "Enable source maps in Webpack configuration."
+            }
+        },
+        "java": {
+            "build_tools": {
+                "description": "Use Maven or Gradle for Java builds. Maven is common for managing projects.",
+                "example": "Create pom.xml for Maven project."
+            },
+            "dependency_management": {
+                "description": "Keep track of and manage Java dependencies carefully. Update them regularly to fix security vulnerabilities.",
+                "example": "Check for new versions of dependencies in pom.xml."
+            }
+        }
+    }
+}

@@ -1,0 +1,391 @@
+name: Weekly Code Workflow with External Knowledge Base
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # 每周日0点0分执行，可根据需要修改时间设置
+
+jobs:
+  code_operations:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Load Knowledge Base
+      run: |
+        KNOWLEDGE_BASE=$(cat knowledge_base.json)
+        echo "::set-env name=KNOWLEDGE_BASE::$KNOWLEDGE_BASE"
+
+    - name: Code Optimization
+      run: |
+        # JavaScript代码优化
+        if [ -n "$(find. -name '*.js')" ]; then
+          JAVASCRIPT_VARIABLE_DECLARATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.variable_declaration.description')
+          JAVASCRIPT_VARIABLE_DECLARATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.variable_declaration.example')
+          JAVASCRIPT_FUNCTION_DEFINITION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.function_definition.description')
+          JAVASCRIPT_FUNCTION_DEFINITION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.function_definition.example')
+          JAVASCRIPT_LOOP_OPTIMIZATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.loop_optimization.description')
+          JAVASCRIPT_LOOP_OPTIMIZATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.loop_optimization.example')
+          JAVASCRIPT_MEMORY_MANAGEMENT_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.memory_management.description')
+          JAVASCRIPT_MEMORY_MANAGEMENT_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.javascript.memory_management.example')
+
+          # 假设这里有一个用于JavaScript代码优化的脚本，根据知识库知识进行优化
+          python optimize_javascript.py \
+            --var_declaration_desc $JAVASCRIPT_VARIABLE_DECLARATION_DESCRIPTION \
+            --var_declaration_ex \
+            --function_definition_desc $JAVASCRIPT_FUNCTION_DEFINITION_DESCRIPTION \
+            --function_definition_ex \
+            --loop_optimization_desc $JAVASCRIPT_LOOP_OPTIMIZATION_DESCRIPTION \
+            --loop_optimization_ex \
+            --memory_management_desc $JAVASCRIPT_MEMORY_MANAGEMENT_DESCRIPTION \
+            --memory_management_ex
+        fi
+
+        # Java代码优化
+        if [ -n "$(find. -name '*.java')" ]; then
+          JAVA_VARIABLE_DECLARATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.java.variable_declaration.description')
+          JAVA_VARIABLE_DECLARATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.java.variable_declaration.example')
+          JAVA_METHOD_DEFINITION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.java.method_definition.description')
+          JAVA_METHOD_DEFINITION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.java.method_definition.example')
+          JAVA_LOOP_OPTIMIZATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.java.loop_optimization.description')
+          JAVA_LOOP_OPTIMIZATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.java.loop_optimization.example')
+
+          # 假设这里有一个用于Java代码优化的脚本，根据知识库知识进行优化
+          python optimize_java.py \
+            --var_declaration_desc $JAVA_VARIABLE_DECLARATION_DESCRIPTION \
+            --var_declaration_ex \
+            --method_definition_desc $JAVA_METHOD_DEFINITION_DESCRIPTION \
+            --method_definition_ex \
+            --loop_optimization_desc $JAVA_LOOP_OPTIMIZATION_DESCRIPTION \
+            --loop_optimization_ex
+        fi
+
+        # HTML代码优化
+        if [ -n "$(find. -name '*.html')" ]; then
+          HTML_TAG_OPTIMIZATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.html.tag_optimization.description')
+          HTML_TAG_OPTIMIZATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.html.tag_optimization.example')
+          HTML_SCRIPT_LOADING_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.html.script_loading.description')
+          HTML_SCRIPT_LOADING_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.html.script_loading.example')
+          HTML_IMAGE_OPTIMIZATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.html.image_optimization.description')
+          HTML_IMAGE_OPTIMIZATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.html.image_optimization.example')
+
+          # 假设这里有一个用于HTML代码优化的脚本，根据知识库知识进行优化
+          python optimize_html.py \
+            --tag_optimization_desc $HTML_TAG_OPTIMIZATION_DESCRIPTION \
+            --tag_optimization_ex \
+            --script_loading_desc $HTML_SCRIPT_LOADING_DESCRIPTION \
+            --script_loading_ex \
+            --image_optimization_desc $HTML_IMAGE_OPTIMIZATION_DESCRIPTION \
+            --image_optimization_ex
+        fi
+
+        # YML代码优化
+        if [ -n "$(find. -name '*.yml')" ]; then
+          YML_INDENTATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.yml.indentation.description')
+          YML_INDENTATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.yml.indentation.example')
+          YML_DATA_TYPES_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.yml.data_types.description')
+          YML_DATA_TYPES_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.yml.data_types.example')
+          YML_REPEATING_ELEMENTS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.yml.repeating_elements.description')
+          YML_REPEATING_ELEMENTS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_optimization.yml.repeating_elements.example')
+
+          # 假设这里有一个用于YML代码优化的脚本，根据知识库知识进行优化
+          python optimize_yml.py \
+            --indentation_desc $YML_INDENTATION_DESCRIPTION \
+            --indentation_ex \
+            --data_types_desc $YML_DATA_TYPES_DESCRIPTION \
+            --data_types_ex \
+            --repeating_elements_desc $YML_REPEATING_ELEMENTS_DESCRIPTION \
+            --repeating_elements_ex
+        fi
+
+    - name: Code Style Check
+      run: |
+        # JavaScript代码风格检查
+        if [ -n "$(find. -name '*.js')" ]; then
+          JAVASCRIPT_SEMICOLON_USAGE_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.javascript.semicolon_usage.description')
+          JAVASCRIPT_SEMICOLON_USAGE_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.javascript.semicolon_usage.example')
+          JAVASCRIPT_BRACE_STYLE_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.javascript.brace_style.description')
+          JAVASCRIPT_BRACE_STYLE_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.javascript.brace_style.example')
+          JAVASCRIPT_SPACING_AND_FORMATTING_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.javascript.spacing_and_formatting.description')
+          JAVASCRIPT_SPACING_AND_FORMATTING_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.javascript.spacing_and_formatting.example')
+
+          # 假设这里有一个用于JavaScript代码风格检查的脚本，根据知识库知识进行检查
+          python check_javascript_style.py \
+            --semicolon_usage_desc $JAVASCRIPT_SEMICOLON_USAGE_DESCRIPTION \
+            --semicolon_usage_ex \
+            --brace_style_desc $JAVASCRIPT_BRACE_STYLE_DESCRIPTION \
+            --brace_style_ex \
+            --spacing_and_formatting_desc $JAVASCRIPT_SPACING_AND_FORMATting_DESCRIPTION \
+            --spacing_and_formatting_ex
+        fi
+
+        # Java代码风格检查
+        if [ -n "$(find. -name '*.java')" ]; then
+          JAVA_INDENTATION_STYLE_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.java.indentation_style.description')
+          JAVA_INDENTATION_STYLE_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.java.indentation_style.example')
+          JAVA_NAMING_CONVENTIONS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.java.naming_conventions.description')
+          JAVA_NAMING_CONVENTIONS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.java.naming_conventions.example')
+          JAVA_CODE_LENGTH_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.java.code_length.description')
+          JAVA_CODE_LENGTH_EXAMPLE=$(echo $KNOWLEDGE | jq -r '.code_style_check.java.code_length.example')
+
+          # 假设这里有一个用于Java代码风格检查的脚本，根据知识库知识进行检查
+          python check_java_style.py \
+            --indentation_style_desc $JAVA_INDENTATION_STYLE_DESCRIPTION \
+            --indentation_style_ex \
+            --naming_conventions_desc $JAVA_NAMING_CONVENTIONS_DESCRIPTION \
+            --naming_conventions_ex \
+            --code_length_desc $JAVA_CODE_LENGTH_DESCRIPTION \
+            --code_length_ex
+        fi
+
+        # HTML代码风格检查
+        if [ -n "$(find. -name '*.html')" ]; then
+          HTML_TAG_NAMING_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.html.tag_naming.description')
+          HTML_TAG_NAMING_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.html.tag_naming.example')
+          HTML_ATTRIBUTE_NAMING_DESCRIPTION=$(
+            echo $KNOWLEDGE_BASE | jq -r '.code_style_check.html.attribute_naming.description')
+          HTML_ATTRIBUTE_NAMING_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.html.attribute_naming.example')
+          HTML_TAG_NESTING_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.html.tag_nesting.description')
+          HTML_TAG_NESTING_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.html.tag_nesting.example')
+
+          # 假设这里有一个用于HTML代码风格检查的脚本，根据知识库知识进行检查
+          python check_html_style.py \
+            --tag_naming_desc $HTML_TAG_NAMING_DESCRIPTION \
+            --tag_naming_ex \
+            --attribute_naming_desc $HTML_ATTRIBUTE_NAMING_DESCRIPTION \
+            --attribute_naming_ex \
+            --tag_nesting_desc $HTML_TAG_NESTING_DESCRIPTION \
+            --tag_nesting_ex
+        fi
+
+        # YML代码风格检查
+        if [ -n "$(find. -name '*.yml')" ]; then
+          YML_COMMENT_FORMAT_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.yml.comment_format.description')
+          YML_COMMENT_FORMAT_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.yml.comment_format.example')
+          YML_CASE_SENSITIVITY_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.yml.case_sensitivity.description')
+          YML_CASE_SENSITIVITY_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.yml.case_sensitivity.example')
+          YML_LINE_LENGTH_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.yml.line_length.description')
+          YML_LINE_LENGTH_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.code_style_check.yml.line_length.example')
+
+          # 假设这里有一个用于YML代码风格检查的脚本，根据知识库知识进行检查
+          python check_yml_style.py \
+            --comment_format_desc $YML_COMMENT_FORMAT_DESCRIPTION \
+            --comment_format_ex \
+            --case_sensitivity_desc $YML_CASE_SENSITIVITY_DESCRIPTION \
+            --case_sensitivity_ex \
+            --line_length_desc $YML_LINE_LENGTH_DESCRIPTION \
+            --line_length_ex
+        fi
+
+    - name: Security Check
+      run: |
+        # JavaScript安全检查
+        if [ -n "$(find. -name '*.js')" ]; then
+          JAVASCRIPT_XSS_PREVENTION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.javascript.xss_prevention.description')
+          JAVASCRIPT_XSS_PREVENTION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.javascript.xss_prevention.example')
+          JAVASCRIPT_CSRF_PREVENTION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.javascript.csrf_prevention.description')
+          JAVASCRIPT_CSRF_PREVENTION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.javascript.csrf_prevention.example')
+          JAVASCRIPT_SECURE_COOKIE_USAGE_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.javascript.secure_cookie_usage.description')
+          JAVASCRIPT_SECURE_COOKIE_USAGE_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.javascript.secure_cookie_usage.example')
+
+          # 假设这里有一个用于JavaScript安全检查的脚本，根据知识库知识进行检查
+          python check_javascript_security.py \
+            --xss_prevention_desc $JAVASCRIPT_XSS_PREVENTION_DESCRIPTION \
+            --xss_prevention_ex \
+            --csrf_prevention_desc $JAVASCRIPT_CSRF_PREVENTION_DESCRIPTION \
+            --csrf_prevention_ex \
+            --secure_cookie_usage_desc $JAVASCRIPT_SECURE_COOKIE_USAGE_DESCRIPTION \
+            --secure_cookie_usage_ex
+        fi
+
+        # Java安全检查
+        if [ -n "$(find. -name '*.java')" ]; then
+          JAVA_SQL_INJECTION_PREVENTION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.java.sql_injection_prevention.description')
+          JAVA_SQL_INJECTION_PREVENTION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.java.sql_injection_prevention.example')
+          JAVA_PASSWORD_SECURITY_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.java.password_security.description')
+          JAVA_PASSWORD_SECURITY_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.java.password_security.example')
+          JAVA_INPUT_VALIDATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.java.input_validation.description')
+          JAVA_INPUT_VALIDATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.java.input_validation.example')
+
+          # 假设这里有一个用于Java安全检查的脚本，根据知识库知识进行检查
+          python check_java_security.py \
+            --sql_injection_prevention_desc $JAVA_SQL_INJECTION_PREVENTION_DESCRIPTION \
+            --sql_injection_prevention_ex \
+            --password_security_desc $JAVA_PASSWORD_SECURITY_DESCRIPTION \
+            --password_security_ex \
+            --input_validation_desc $JAVA_INPUT_VALIDATION_DESCRIPTION \
+            --input_validation_ex
+        fi
+
+        # HTML安全检查
+        if [ -n "$(find. -name '*.html')" ]; then
+          HTML_CLICKJACKING_PREVENTION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.html.clickjacking_prevention.description')
+          HTML_CLICKJACKING_PREVENTION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.html.clickjacking_prevention.example')
+          HTML_CSRF_PREVENTION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.html.csrf_prevention.description')
+          HTML_CSRF_PREVENTION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.html.csrf_prevention.example')
+          HTML_CONTENT_SECURITY_POLICY_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.html.content_security_policy.description')
+          HTML_CONTENT_SECURITY_POLICY_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.security_check.html.content_security_policy.example')
+
+# 假设这里有一个用于HTML安全检查的脚本，根据知识库知识进行检查
+python check_html_security.py \
+    --clickjacking_prevention_desc $HTML_CLICKJACKING_PREVENTION_DESCRIPTION \
+    --clickjacking_prevention_ex \
+    --csrf_prevention_desc $HTML_CSRF_PREVENTION_DESCRIPTION \
+    --csrf_prevention_ex \
+    --content_security_policy_desc $HTML_CONTENT_SECURITY_POLICY_DESCRIPTION \
+    --content_security_policy_ex
+
+# 项目构建相关设置
+- name: Project Build
+  run: |
+    # JavaScript项目构建
+    if [ -n "$(find. -name '*.js')" ]; then
+      JAVASCRIPT_BUILD_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.javascript.build_tools.description')
+      JAVASCRIPT_BUILD_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.javascript.build_tools.example')
+      JAVASCRIPT_MINIFICATION_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.javascript.minification.description')
+      JAVASCRIPT_MINIFICATION_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.javascript.minification.example')
+      JAVASCRIPT_SOURCE_MAPS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.javascript.source_maps.description')
+      JAVASCRIPT_SOURCE_MAPS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.javascript.source_maps.example')
+
+      # 假设这里有一个用于JavaScript项目构建的脚本，根据知识库知识进行构建操作
+      python build_javascript.py \
+        --build_tools_desc $JAVASCRIPT_BUILD_TOOLS_DESCRIPTION \
+        --build_tools_ex \
+        --minification_desc $JAVASCRIPT_MINIFICATION_DESCRIPTION \
+        --minification_ex \
+        --source_maps_desc $JAVASCRIPT_SOURCE_MAPS_DESCRIPTION \
+        --source_maps_ex
+    fi
+
+    # Java项目构建
+    if [ -n "$(find. -name '*.java')" ]; then
+      JAVA_BUILD_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.java.build_tools.description')
+      JAVA_BUILD_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.java.build_tools.example')
+      JAVA_DEPENDENCY_MANAGEMENT_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.java.dependency_management.description')
+      JAVA_DEPENDENCY_MANAGEMENT_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.java.dependency_management.example')
+
+      # 假设这里有一个用于Java项目构建的脚本，根据知识库知识进行构建操作
+      python build_java.py \
+        --build_tools_desc $JAVA_BUILD_TOOLS_DESCRIPTION \
+        --build_tools_ex \
+        --dependency_management_desc $JAVA_DEPENDENCY_MANAGEMENT_DESCRIPTION \
+        --dependency_management_ex
+    fi
+
+    # HTML项目构建（可根据实际情况补充具体构建操作，这里简单示例）
+    if [ -n "$(find. -name '*.html')" ]; then
+      HTML_BUILD_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.html.build_tools.description')
+      HTML_BUILD_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.html.build_tools.example')
+
+      # 假设这里有一个用于HTML项目构建的脚本，根据知识库知识进行构建操作
+      python build_html.py \
+        --build_tools_desc $HTML_BUILD_TOOLS_DESCRIPTION \
+        --build_tools_ex
+    fi
+
+    # YML项目构建（可根据实际情况补充具体构建操作，这里简单示例）
+    if [ -n "$(find. -name '*.yml')" ]; then
+      YML_BUILD_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.yml.build_tools.description')
+      YML_BUILD_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.project_build.yml.build_tools.example')
+
+      # 假设这里有一个用于YML项目构建的脚本，根据知识库知识进行构建操作
+      python build_yml.py \
+        --build_tools_desc $YML_BUILD_TOOLS_DESCRIPTION \
+        --build_tools_ex
+    fi
+
+# 项目测试相关设置（这里简单示例，可根据实际需求详细扩展）
+- name: Project Testing
+  run: |
+    # JavaScript项目测试
+    if [ -n "$(find. -name '*.js')" ]; then
+      JAVASCRIPT_TESTING_FRAMEWORK_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.testing.javascript.testing_framework.description')
+      JAVASCRIPT_TESTING_FRAMEWORK_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.testing.javascript.testing_framework.example')
+
+      # 假设这里有一个用于JavaScript项目测试的脚本，根据知识库知识进行测试操作
+      python test_javascript.py \
+        --testing_framework_desc $JAVASCRIPT_TESTING_FRAMEWORK_DESCRIPTION \
+        --testing_framework_ex
+    fi
+
+    # Java项目测试
+    if [ -n "$(find. -name '*.java')" ]; then
+      JAVA_TESTING_FRAMEWORK_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.testing.java.testing_framework.description')
+      JAVA_TESTING_FRAMEWORK_EXAMPLE=$(
+        echo $KNOWLEDGE_BASE | jq -r '.testing.java.testing_framework.example')
+
+      # 假设这里有一个用于Java项目测试的脚本，根据知识库知识进行测试操作
+      python test_java.py \
+        --testing_framework_desc $JAVA_TESTING_FRAMEWORK_DESCRIPTION \
+        --testing_framework_ex
+    fi
+
+    # HTML项目测试（可根据实际情况补充具体测试操作，这里简单示例）
+    if [ -n "$(find. -name '*.html')" ]; then
+      HTML_TESTING_FRAMEWORK_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.testing.html.testing_framework.description')
+      HTML_TESTING_FRAMEWORK_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.testing.html.testing_framework.example')
+
+      # 假设这里有一个用于HTML项目测试的脚本，根据知识库知识进行测试操作
+      python test_html.py \
+        --testing_framework_desc $HTML_TESTING_FRAMEWORK_DESCRIPTION \
+        --testing_framework_ex
+    fi
+
+    # YML项目测试（可根据实际情况补充具体测试操作，这里简单示例）
+    if [ -n "$(find. -name '*.yml')" ]; then
+      YML_TESTING_FRAMEWORK_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.testing.yml.testing_framework.description')
+      YML_TESTING_FRAMEWORK_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.testing.yml.testing_framework.example')
+
+      # 假设这里有一个用于YML项目测试的脚本，根据知识库知识进行测试操作
+      python test_yml.py \
+        --testing_framework_desc $YML_TESTING_FRAMEWORK_DESCRIPTION \
+        --testing_framework_ex
+    fi
+
+# 项目发布相关设置（这里简单示例，可根据实际需求详细扩展）
+- name: Project Release
+  run: |
+    # JavaScript项目发布
+    if [ -n "$(find. -name '*.js')" ]; then
+      JAVASCRIPT_RELEASE_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.release.javascript.release_tools.description')
+      JAVASCRIPT_RELEASE_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.release.javascript.release_tools.example')
+
+      # 假设这里有一个用于JavaScript项目发布的脚本，根据知识库知识进行发布操作
+      python release_javascript.py \
+        --release_tools_desc $JAVASCRIPT_RELEASE_TOOLS_DESCRIPTION \
+        --release_tools_ex
+    fi
+
+    # Java项目发布
+    if [ -n "$(find. -name '*.java')" ]; then
+      JAVA_RELEASE_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.release.java.release_tools.description')
+      JAVA_RELEASE_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.release.java.release_tools.example')
+
+      # 假设这里有一个用于Java项目发布的脚本，根据知识库知识进行发布操作
+      python release_java.py \
+        --release_tools_desc $JAVA_RELEASE_TOOLS_DESCRIPTION \
+        --release_tools_ex
+    fi
+
+    # HTML项目发布（可根据实际情况补充具体发布操作，这里简单示例）
+    if [ -n "$(find. -name '*.html')" ]; then
+      HTML_RELEASE_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.release.html.release_tools.description')
+      HTML_RELEASE_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.release.html.release_tools.example')
+
+      # 假设这里有一个用于HTML项目发布的 script，根据知识库知识进行发布操作
+      python release_html.py \
+        --release_tools_desc $HTML_RELEASE_TOOLS_DESCRIPTION \
+        --release_tools_ex
+    fi
+
+    # YML项目发布（可根据实际情况补充具体发布操作，这里简单示例）
+    if [ -n "$(find. -name '*.yml')" ]; then
+      YML_RELEASE_TOOLS_DESCRIPTION=$(echo $KNOWLEDGE_BASE | jq -r '.release.yml.release_tools.description')
+      YML_RELEASE_TOOLS_EXAMPLE=$(echo $KNOWLEDGE_BASE | jq -r '.release.yml.release_tools.example')
+
+      # 假设这里有一个用于YML项目发布的 script，根据知识库知识进行发布操作
+      python release_yml.py \
+        --release_tools_desc $YML_RELEASE_TOOLS_DESCRIPTION \
+        --release_tools_ex
+    fi
